@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        
+        body ,html{
+            height: 100%; 
+            margin: 0; 
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
+        .container {
+            background: white;
+            width: 400px;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px gray;
+            
+
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        button {
+            background: rgb(103, 103, 185);
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            <input type="text" id="name" placeholder="Enter your Name">
+            <p class="error" id="nameError"></p>
+
+            <input type="number" id="age" placeholder="Age">
+            <p class="error" id="ageError"></p>
+
+            <input type="email" id="email" placeholder="Email ID">
+            <p class="error" id="emailError"></p>
+
+            <input type="text" id="pincode" placeholder="PIN Code">
+            <p class="error" id="pinError"></p>
+
+            <input type="password" id="password" placeholder="Password">
+            <p class="error" id="passwordError"></p>
+
+            <button type="button" onclick="validateForm()">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Get values
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let email = document.getElementById("email").value;
+            let pincode = document.getElementById("pincode").value;
+            let password = document.getElementById("password").value;
+
+            // Clear previous errors
+            document.getElementById("nameError").innerText = "";
+            document.getElementById("ageError").innerText = "";
+            document.getElementById("emailError").innerText = "";
+            document.getElementById("pinError").innerText = "";
+            document.getElementById("passwordError").innerText = "";
+
+            let valid = true;
+
+            // Name Validation (Only letters & spaces)
+            let nameRegex = /^[A-Za-z\s]+$/;
+            if (!nameRegex.test(name)) {
+                document.getElementById("nameError").innerText = "Name should contain only alphabets and spaces.";
+                valid = false;
+            }
+
+            // Age Validation (Between 18 and 60)
+            if (age < 18 || age > 60) {
+                document.getElementById("ageError").innerText = "Age should be between 18 and 60.";
+                valid = false;
+            }
+
+            // Email Validation
+            let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById("emailError").innerText = "Enter a valid email address.";
+                valid = false;
+            }
+
+            // PIN Code Validation (6 digits only)
+            let pinRegex = /^\d{6}$/;
+            if (!pinRegex.test(pincode)) {
+                document.getElementById("pinError").innerText = "PIN Code must be exactly 6 digits.";
+                valid = false;
+            }
+
+            // Password Validation
+            let passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[\W_]).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById("passwordError").innerText = "Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 digit, and 1 special character.";
+                valid = false;
+            }
+
+            if (valid) {
+                alert("Registration Successful!");
+            }
+        }
+    </script>
+
+</body>
+</html>
